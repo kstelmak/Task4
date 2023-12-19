@@ -1,0 +1,48 @@
+﻿@model IEnumerable<AppUser>
+@{
+	ViewData["Title"] = "Main Page";
+}
+
+<h1 class="bg-primary text-white p-2 rounded">Manage users</h1>
+
+<div class="my-2 d-flex flex-row justify-content-end">
+	<p class="m-0">		Hello, @ViewData["UserName"]!
+		<a asp-controller="Account" asp-action="Logout" class="text-danger ml-4">Logout</a>
+	</p>
+</div>
+
+<form method="post">
+
+	<div class="my-2">
+		<input type='submit' value='Block' class="btn btn-primary" asp-action="ChangeStatus" asp-route-status="Blocked"></input>
+		<input type='submit' value='Unblock' class="btn btn-primary" asp-action="ChangeStatus" asp-route-status="Active"></input>
+		<input type='submit' value='Delete' class="btn btn-primary" asp-action="Delete"></input>
+	</div>
+
+	<table class="table table-bordered my-2 table-hover border-primary">
+
+	<thead>
+		<th><input type="checkbox" onclick="CheckAll()"></input></th>
+		<th>ID</th>
+		<th>Name</th>
+		<th>Email</th>
+		<th>First login</th>
+		<th>Last login</th>
+		<th>Status</th>
+	</thead>
+
+	@foreach (AppUser user in Model)
+	{
+		<tr>
+			<td><input type="checkbox" name="userName" value=@user.UserName id=@user.UserName></input></td>
+			<td>@user.Id</td>
+			<td>@user.UserName</td>
+			<td>@user.Email</td>
+			<td>@user.FirstLogin</td>
+			<td>@user.LastLogin</td>
+			<td>@user.Status</td>
+		</tr>
+	}
+
+</table>
+</form>
